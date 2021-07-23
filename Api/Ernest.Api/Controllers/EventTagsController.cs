@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Ernest.Api.Data;
 using Ernest.Api.Mappers;
 using Ernest.Api.Models.Db;
@@ -26,6 +24,11 @@ namespace Ernest.Api.Controllers
             _eventTagResponseMapper = eventTagResponseMapper;
         }
 
+        /// <summary>
+        ///     Get all event tags
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("")]
         public IActionResult GetAll()
         {
@@ -33,6 +36,11 @@ namespace Ernest.Api.Controllers
             return Json(_eventTagResponseMapper.MapDbToApiResponseEnumerable(eventTags));
         }
 
+        /// <summary>
+        ///     Add a new event tag
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         public IActionResult Post([FromBody] EventTagsPostRequest request)
