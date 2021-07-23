@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
 using Ernest.Api.Data;
 using Ernest.Api.Mappers;
 using Ernest.Api.Models.Db;
 using Ernest.Api.Models.Requests;
 using Ernest.Api.Models.Responses;
+using Ernest.Api.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ernest.Api.Controllers
@@ -16,12 +18,16 @@ namespace Ernest.Api.Controllers
 
         private readonly IApiResponseMapper<EventTag, EventTagApiResponse> _eventTagResponseMapper;
 
+        private readonly IEventTagsRepository _eventTagsRepository;
+
         public EventTagController(
             ApplicationDbContext applicationDbContext,
-            IApiResponseMapper<EventTag, EventTagApiResponse> eventTagResponseMapper)
+            IApiResponseMapper<EventTag, EventTagApiResponse> eventTagResponseMapper,
+            IEventTagsRepository eventTagsRepository)
         {
             _applicationDbContext = applicationDbContext;
             _eventTagResponseMapper = eventTagResponseMapper;
+            _eventTagsRepository = eventTagsRepository;
         }
 
         /// <summary>
@@ -32,8 +38,7 @@ namespace Ernest.Api.Controllers
         [Route("")]
         public IActionResult GetAll()
         {
-            var eventTags = _applicationDbContext.EventTags;
-            return Json(_eventTagResponseMapper.MapDbToApiResponseEnumerable(eventTags));
+            return Json(_eventTagResponseMapper.MapDbToApiResponseEnumerable(_eventTagsRepository.GetAll()));
         }
 
         /// <summary>
@@ -43,15 +48,15 @@ namespace Ernest.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        public IActionResult Post([FromBody] EventTagsPostRequest request)
+        public async Task<IActionResult> Post([FromBody] EventTagsPostRequest request)
         {
-            var newTag = _applicationDbContext.Add(new EventTag
+            var newTag = new EventTag
             {
                 Title = request.Title
-            });
+            };
 
-            _applicationDbContext.SaveChanges();
-            return Json(_eventTagResponseMapper.MapDbToApiResponse(newTag.Entity));
+            await _eventTagsRepository.AddTagAsync(newTag);
+            return Json(_eventTagResponseMapper.MapDbToApiResponse(newTag));
         }
     }
 }
