@@ -9,14 +9,14 @@ namespace Ernest.Api.Controllers
 {
 
     [ApiController]
-    [Route("eventTags")]
-    public class EventTagsController : Controller
+    [Route("eventTag")]
+    public class EventTagController : Controller
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
         private readonly IApiResponseMapper<EventTag, EventTagApiResponse> _eventTagResponseMapper;
 
-        public EventTagsController(
+        public EventTagController(
             ApplicationDbContext applicationDbContext,
             IApiResponseMapper<EventTag, EventTagApiResponse> eventTagResponseMapper)
         {

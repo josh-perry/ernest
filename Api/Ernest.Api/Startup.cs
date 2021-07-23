@@ -5,6 +5,8 @@ using Ernest.Api.Data;
 using Ernest.Api.Mappers;
 using Ernest.Api.Models.Db;
 using Ernest.Api.Models.Responses;
+using Ernest.Api.Repositories;
+using Ernest.Api.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -46,7 +48,12 @@ namespace Ernest.Api
                 c.IncludeXmlComments(xmlPath);
             });
 
+            // Mappers
             services.AddSingleton<IApiResponseMapper<EventTag, EventTagApiResponse>, EventTagsMapper>();
+            services.AddSingleton<IApiResponseMapper<Event, EventApiResponse>, EventMapper>();
+
+            // Repositories
+            services.AddTransient<IEventTagsRepository, EventTagsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
