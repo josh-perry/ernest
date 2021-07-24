@@ -1,11 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Ernest.Api.Data;
 using Ernest.Api.Mappers;
 using Ernest.Api.Models.Db;
 using Ernest.Api.Models.Responses;
+using Ernest.Api.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ernest.Api.Controllers
 {
@@ -13,15 +12,15 @@ namespace Ernest.Api.Controllers
     [Route("eventType")]
     public class EventTypeController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IEventTypeRepository _eventTypeRepository;
 
         private readonly IApiResponseMapper<EventType, EventTypeApiResponse> _eventTypeResponseMapper;
 
         public EventTypeController(
-            ApplicationDbContext dbContext,
+            IEventTypeRepository eventTypeRepository,
             IApiResponseMapper<EventType, EventTypeApiResponse> eventTypeResponseMapper)
         {
-            _dbContext = dbContext;
+            _eventTypeRepository = eventTypeRepository;
             _eventTypeResponseMapper = eventTypeResponseMapper;
         }
 
@@ -29,13 +28,8 @@ namespace Ernest.Api.Controllers
         [Route("")]
         public async Task<IActionResult> GetAllEventTypes()
         {
-            var r = _dbContext.EventTypes
-                .Include(x => x.BooleanFields)
-                .Include(x => x.StringFields)
-                .Include(x => x.IntegerFields)
-                .Include(x => x.DecimalFields);
-
-            return Json(_eventTypeResponseMapper.MapDbToApiResponseEnumerable(r.ToList()));
+            var eventTypes = _eventTypeRepository.GetAll();
+            return Json(_eventTypeResponseMapper.MapDbToApiResponseEnumerable(eventTypes.ToList()));
         }
     }
 }

@@ -55,6 +55,7 @@ namespace Ernest.Api
 
             // Repositories
             services.AddTransient<IEventTagsRepository, EventTagsRepository>();
+            services.AddTransient<IEventTypeRepository, EventTypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
