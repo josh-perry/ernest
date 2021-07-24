@@ -5,7 +5,7 @@ using Ernest.Api.Models.Responses;
 
 namespace Ernest.Api.Mappers
 {
-    public class EventTagsMapper : IApiResponseMapper<EventTag, EventTagApiResponse>
+    public class EventTagMapper : IApiResponseMapper<EventTag, EventTagApiResponse>
     {
         public EventTagApiResponse MapDbToApiResponse(EventTag db)
         {
@@ -17,11 +17,7 @@ namespace Ernest.Api.Mappers
 
         public IEnumerable<EventTagApiResponse> MapDbToApiResponseEnumerable(IEnumerable<EventTag> db)
         {
-            return db.ToList().Select(tag => new EventTagApiResponse
-                {
-                    Title = tag.Title
-                })
-                .ToList();
+            return db.Select(MapDbToApiResponse).ToList();
         }
     }
 }

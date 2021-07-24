@@ -49,7 +49,7 @@ namespace Ernest.Api
             });
 
             // Mappers
-            services.AddSingleton<IApiResponseMapper<EventTag, EventTagApiResponse>, EventTagsMapper>();
+            services.AddSingleton<IApiResponseMapper<EventTag, EventTagApiResponse>, EventTagMapper>();
             services.AddSingleton<IApiResponseMapper<Event, EventApiResponse>, EventMapper>();
             services.AddSingleton<IApiResponseMapper<EventType, EventTypeApiResponse>, EventTypeMapper>();
 
