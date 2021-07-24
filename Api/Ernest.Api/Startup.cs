@@ -51,6 +51,7 @@ namespace Ernest.Api
             // Mappers
             services.AddSingleton<IApiResponseMapper<EventTag, EventTagApiResponse>, EventTagsMapper>();
             services.AddSingleton<IApiResponseMapper<Event, EventApiResponse>, EventMapper>();
+            services.AddSingleton<IApiResponseMapper<EventType, EventTypeApiResponse>, EventTypeMapper>();
 
             // Repositories
             services.AddTransient<IEventTagsRepository, EventTagsRepository>();
@@ -60,7 +61,11 @@ namespace Ernest.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
+            }
+
+            app.SeedDatabase(env);
 
             app.UseHttpsRedirection();
 

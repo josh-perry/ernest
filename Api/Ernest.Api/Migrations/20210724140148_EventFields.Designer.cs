@@ -3,14 +3,16 @@ using System;
 using Ernest.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ernest.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210724140148_EventFields")]
+    partial class EventFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,11 +84,17 @@ namespace Ernest.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("EventTypeFieldTemplatesID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EventTypeID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastEditedDateTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
@@ -144,11 +152,17 @@ namespace Ernest.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("EventTypeFieldTemplatesID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EventTypeID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastEditedDateTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
@@ -206,11 +220,17 @@ namespace Ernest.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("EventTypeFieldTemplatesID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EventTypeID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastEditedDateTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
@@ -268,11 +288,17 @@ namespace Ernest.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("EventTypeFieldTemplatesID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EventTypeID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastEditedDateTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");

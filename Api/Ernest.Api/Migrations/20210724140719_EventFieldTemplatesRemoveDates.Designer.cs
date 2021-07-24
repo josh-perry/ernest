@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ernest.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210724133309_EventType")]
-    partial class EventType
+    [Migration("20210724140719_EventFieldTemplatesRemoveDates")]
+    partial class EventFieldTemplatesRemoveDates
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,11 +66,45 @@ namespace Ernest.Api.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.HasIndex("EventTypeID");
 
                     b.ToTable("EventBooleanFields");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventBooleanFieldTemplate", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeFieldTemplatesID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EventTypeFieldTemplatesID");
+
+                    b.HasIndex("EventTypeID");
+
+                    b.ToTable("EventBooleanFieldTemplates");
                 });
 
             modelBuilder.Entity("Ernest.Api.Models.Db.EventDecimalField", b =>
@@ -94,11 +128,45 @@ namespace Ernest.Api.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.HasIndex("EventTypeID");
 
                     b.ToTable("EventDecimalFields");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventDecimalFieldTemplate", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeFieldTemplatesID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EventTypeFieldTemplatesID");
+
+                    b.HasIndex("EventTypeID");
+
+                    b.ToTable("EventDecimalFieldTemplates");
                 });
 
             modelBuilder.Entity("Ernest.Api.Models.Db.EventIntegerField", b =>
@@ -122,11 +190,45 @@ namespace Ernest.Api.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.HasIndex("EventTypeID");
 
                     b.ToTable("EventIntegerFields");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventIntegerFieldTemplate", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeFieldTemplatesID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EventTypeFieldTemplatesID");
+
+                    b.HasIndex("EventTypeID");
+
+                    b.ToTable("EventIntegerFieldTemplates");
                 });
 
             modelBuilder.Entity("Ernest.Api.Models.Db.EventStringField", b =>
@@ -150,11 +252,45 @@ namespace Ernest.Api.Migrations
                     b.Property<string>("String")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.HasIndex("EventTypeID");
 
                     b.ToTable("EventStringFields");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventStringFieldTemplate", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeFieldTemplatesID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EventTypeFieldTemplatesID");
+
+                    b.HasIndex("EventTypeID");
+
+                    b.ToTable("EventStringFieldTemplates");
                 });
 
             modelBuilder.Entity("Ernest.Api.Models.Db.EventTag", b =>
@@ -189,6 +325,22 @@ namespace Ernest.Api.Migrations
                     b.ToTable("EventTypes");
                 });
 
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventTypeFieldTemplates", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EventTypeID");
+
+                    b.ToTable("EventTypeFieldTemplates");
+                });
+
             modelBuilder.Entity("EventEventTag", b =>
                 {
                     b.Property<int>("EventTagsID")
@@ -216,7 +368,20 @@ namespace Ernest.Api.Migrations
             modelBuilder.Entity("Ernest.Api.Models.Db.EventBooleanField", b =>
                 {
                     b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeID");
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventBooleanFieldTemplate", b =>
+                {
+                    b.HasOne("Ernest.Api.Models.Db.EventTypeFieldTemplates", null)
                         .WithMany("BooleanFields")
+                        .HasForeignKey("EventTypeFieldTemplatesID");
+
+                    b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
                         .HasForeignKey("EventTypeID");
 
                     b.Navigation("EventType");
@@ -225,7 +390,20 @@ namespace Ernest.Api.Migrations
             modelBuilder.Entity("Ernest.Api.Models.Db.EventDecimalField", b =>
                 {
                     b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeID");
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventDecimalFieldTemplate", b =>
+                {
+                    b.HasOne("Ernest.Api.Models.Db.EventTypeFieldTemplates", null)
                         .WithMany("DecimalFields")
+                        .HasForeignKey("EventTypeFieldTemplatesID");
+
+                    b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
                         .HasForeignKey("EventTypeID");
 
                     b.Navigation("EventType");
@@ -234,7 +412,20 @@ namespace Ernest.Api.Migrations
             modelBuilder.Entity("Ernest.Api.Models.Db.EventIntegerField", b =>
                 {
                     b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeID");
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventIntegerFieldTemplate", b =>
+                {
+                    b.HasOne("Ernest.Api.Models.Db.EventTypeFieldTemplates", null)
                         .WithMany("IntegerFields")
+                        .HasForeignKey("EventTypeFieldTemplatesID");
+
+                    b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
                         .HasForeignKey("EventTypeID");
 
                     b.Navigation("EventType");
@@ -243,7 +434,29 @@ namespace Ernest.Api.Migrations
             modelBuilder.Entity("Ernest.Api.Models.Db.EventStringField", b =>
                 {
                     b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeID");
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventStringFieldTemplate", b =>
+                {
+                    b.HasOne("Ernest.Api.Models.Db.EventTypeFieldTemplates", null)
                         .WithMany("StringFields")
+                        .HasForeignKey("EventTypeFieldTemplatesID");
+
+                    b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeID");
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventTypeFieldTemplates", b =>
+                {
+                    b.HasOne("Ernest.Api.Models.Db.EventType", "EventType")
+                        .WithMany("EventTypeFields")
                         .HasForeignKey("EventTypeID");
 
                     b.Navigation("EventType");
@@ -265,6 +478,11 @@ namespace Ernest.Api.Migrations
                 });
 
             modelBuilder.Entity("Ernest.Api.Models.Db.EventType", b =>
+                {
+                    b.Navigation("EventTypeFields");
+                });
+
+            modelBuilder.Entity("Ernest.Api.Models.Db.EventTypeFieldTemplates", b =>
                 {
                     b.Navigation("BooleanFields");
 

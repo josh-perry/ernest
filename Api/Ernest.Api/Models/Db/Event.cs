@@ -20,5 +20,7 @@ namespace Ernest.Api.Models.Db
         public EventType EventType { get; set; }
 
         public ICollection<EventTag> EventTags { get; set; }
+
+        //public ICollection<EventFieldValues> FieldValues { get; set; }
     }
 }

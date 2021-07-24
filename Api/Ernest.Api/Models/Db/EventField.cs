@@ -1,10 +1,15 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ernest.Api.Models.Db
 {
     public abstract class EventField
     {
         public int ID { get; set; }
+
+        [Required]
+        [MaxLength(120)]
+        public string Title { get; set; }
 
         public int Priority { get; set; }
 

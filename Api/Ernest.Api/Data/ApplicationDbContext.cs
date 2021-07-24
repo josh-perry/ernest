@@ -23,5 +23,13 @@ namespace Ernest.Api.Data
         public DbSet<EventIntegerField> EventIntegerFields { get; set; }
 
         public DbSet<EventDecimalField> EventDecimalFields { get; set; }
+
+        public DbSet<EventBooleanFieldTemplate> EventBooleanFieldTemplates { get; set; }
+
+        public DbSet<EventStringFieldTemplate> EventStringFieldTemplates { get; set; }
+
+        public DbSet<EventIntegerFieldTemplate> EventIntegerFieldTemplates { get; set; }
+
+        public DbSet<EventDecimalFieldTemplate> EventDecimalFieldTemplates { get; set; }
     }
 }
