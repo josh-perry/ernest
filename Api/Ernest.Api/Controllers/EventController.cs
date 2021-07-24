@@ -11,7 +11,6 @@ using Ernest.Api.Models.Responses;
 using Ernest.Api.Repositories.Interfaces;
 using Ernest.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Ernest.Api.Controllers
@@ -20,30 +19,30 @@ namespace Ernest.Api.Controllers
     [Route("event")]
     public class EventController : Controller
     {
-        private readonly ApplicationDbContext _applicationDbContext;
-
         private readonly IApiResponseMapper<Event, EventApiResponse> _eventResponseMapper;
 
         private readonly IEventTagsRepository _eventTagsRepository;
 
         private readonly IEventTypeRepository _eventTypeRepository;
 
+        private readonly IEventRepository _eventRepository;
+
         private readonly IEventValidator _eventValidator;
 
         private readonly ILogger<EventController> _logger;
 
         public EventController(
-            ApplicationDbContext applicationDbContext,
             IApiResponseMapper<Event, EventApiResponse> eventResponseMapper,
             IEventTagsRepository eventTagsRepository,
             IEventTypeRepository eventTypeRepository,
+            IEventRepository eventRepository,
             IEventValidator eventValidator,
             ILogger<EventController> logger)
         {
-            _applicationDbContext = applicationDbContext;
             _eventResponseMapper = eventResponseMapper;
             _eventTagsRepository = eventTagsRepository;
             _eventTypeRepository = eventTypeRepository;
+            _eventRepository = eventRepository;
             _eventValidator = eventValidator;
             _logger = logger;
         }
@@ -56,7 +55,7 @@ namespace Ernest.Api.Controllers
         [Route("")]
         public async Task<IActionResult> GetAllEvents()
         {
-            var events = _applicationDbContext.Events.Include(x => x.EventTags).Include(x => x.EventType);
+            var events = _eventRepository.GetAll();
             return Json(_eventResponseMapper.MapDbToApiResponseEnumerable(events));
         }
 
@@ -84,8 +83,7 @@ namespace Ernest.Api.Controllers
                 EventType = eventType
             };
 
-            await _applicationDbContext.AddAsync(newEvent);
-            await _applicationDbContext.SaveChangesAsync();
+            newEvent = _eventRepository.Add(newEvent);
 
             _logger.LogInformation($"Added new event: {newEvent.ID}");
             return Json(_eventResponseMapper.MapDbToApiResponse(newEvent));

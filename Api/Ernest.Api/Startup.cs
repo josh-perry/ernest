@@ -59,6 +59,7 @@ namespace Ernest.Api
             services.AddTransient<IEventTagsRepository, EventTagsRepository>();
             services.AddTransient<IEventTypeRepository, EventTypeRepository>();
             services.AddTransient<IEventFieldRepository, EventFieldRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
 
             // Services
             services.AddTransient<IEventValidator, EventValidator>();
