@@ -13,5 +13,8 @@ namespace Ernest.Api.Models.Requests
 
         [Required]
         public string[] EventTags { get; set; }
+
+        [Required]
+        public string EventType { get; set; }
     }
 }

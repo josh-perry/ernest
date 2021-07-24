@@ -25,17 +25,21 @@ namespace Ernest.Api.Controllers
 
         private readonly IEventTagsRepository _eventTagsRepository;
 
+        private readonly IEventTypeRepository _eventTypeRepository;
+
         private readonly ILogger<EventController> _logger;
 
         public EventController(
             ApplicationDbContext applicationDbContext,
             IApiResponseMapper<Event, EventApiResponse> eventResponseMapper,
             IEventTagsRepository eventTagsRepository,
+            IEventTypeRepository eventTypeRepository,
             ILogger<EventController> logger)
         {
             _applicationDbContext = applicationDbContext;
             _eventResponseMapper = eventResponseMapper;
             _eventTagsRepository = eventTagsRepository;
+            _eventTypeRepository = eventTypeRepository;
             _logger = logger;
         }
 
@@ -47,7 +51,7 @@ namespace Ernest.Api.Controllers
         [Route("")]
         public async Task<IActionResult> GetAllEvents()
         {
-            var events = _applicationDbContext.Events.Include(x => x.EventTags);
+            var events = _applicationDbContext.Events.Include(x => x.EventTags).Include(x => x.EventType);
             return Json(_eventResponseMapper.MapDbToApiResponseEnumerable(events));
         }
 
@@ -64,12 +68,18 @@ namespace Ernest.Api.Controllers
             if (!Validator.TryValidateObject(request, new ValidationContext(request), validationResults))
                 return BadRequest(validationResults);
 
+            var eventType = _eventTypeRepository.GetByName(request.EventType).FirstOrDefault();
+
+            if (eventType == null)
+                return BadRequest($"Unrecognised event type: {request.EventType}");
+
             var newEvent = new Event
             {
                 Description = request.Description,
                 Title = request.Title,
                 DateTime = DateTime.UtcNow,
-                EventTags = _eventTagsRepository.GetByName(request.EventTags).ToList()
+                EventTags = _eventTagsRepository.GetByName(request.EventTags).ToList(),
+                EventType = eventType
             };
 
             await _applicationDbContext.AddAsync(newEvent);

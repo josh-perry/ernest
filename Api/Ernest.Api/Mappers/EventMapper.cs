@@ -21,7 +21,8 @@ namespace Ernest.Api.Mappers
                 Description = db.Description,
                 Title = db.Title,
                 DateTime = db.DateTime,
-                EventTags = _eventTagMapper.MapDbToApiResponseEnumerable(db.EventTags ?? new List<EventTag>())
+                EventTags = _eventTagMapper.MapDbToApiResponseEnumerable(db.EventTags ?? new List<EventTag>()),
+                EventType = db.EventType?.Title
             };
         }
 

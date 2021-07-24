@@ -12,5 +12,7 @@ namespace Ernest.Api.Models.Responses
         public DateTime DateTime { get; set; }
 
         public IEnumerable<EventTagApiResponse> EventTags { get; set; }
+
+        public string EventType { get; set; }
     }
 }
