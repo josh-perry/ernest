@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Ernest.Api.Mappers;
 using Ernest.Api.Models.Db;
@@ -45,6 +47,10 @@ namespace Ernest.Api.Controllers
         [Route("")]
         public async Task<IActionResult> PostNewEventTag([FromBody] EventTagsPostRequest request)
         {
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(request, new ValidationContext(request), validationResults))
+                return BadRequest(validationResults);
+
             var newTag = new EventTag
             {
                 Title = request.Title
