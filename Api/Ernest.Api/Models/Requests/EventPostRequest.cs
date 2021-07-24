@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ernest.Api.Models.Requests
@@ -16,5 +17,7 @@ namespace Ernest.Api.Models.Requests
 
         [Required]
         public string EventType { get; set; }
+
+        public Dictionary<string, object> Fields { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using Ernest.Api.Models.Db;
 using Ernest.Api.Models.Requests;
 using Ernest.Api.Models.Responses;
 using Ernest.Api.Repositories.Interfaces;
+using Ernest.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,8 @@ namespace Ernest.Api.Controllers
 
         private readonly IEventTypeRepository _eventTypeRepository;
 
+        private readonly IEventValidator _eventValidator;
+
         private readonly ILogger<EventController> _logger;
 
         public EventController(
@@ -34,12 +37,14 @@ namespace Ernest.Api.Controllers
             IApiResponseMapper<Event, EventApiResponse> eventResponseMapper,
             IEventTagsRepository eventTagsRepository,
             IEventTypeRepository eventTypeRepository,
+            IEventValidator eventValidator,
             ILogger<EventController> logger)
         {
             _applicationDbContext = applicationDbContext;
             _eventResponseMapper = eventResponseMapper;
             _eventTagsRepository = eventTagsRepository;
             _eventTypeRepository = eventTypeRepository;
+            _eventValidator = eventValidator;
             _logger = logger;
         }
 
@@ -64,14 +69,11 @@ namespace Ernest.Api.Controllers
         [Route("")]
         public async Task<IActionResult> PostNewEvent([FromBody] EventPostRequest request)
         {
-            var validationResults = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(request, new ValidationContext(request), validationResults))
+            var validationResults = _eventValidator.ValidateEventPost(request);
+            if (validationResults.Any())
                 return BadRequest(validationResults);
 
             var eventType = _eventTypeRepository.GetByName(request.EventType).FirstOrDefault();
-
-            if (eventType == null)
-                return BadRequest($"Unrecognised event type: {request.EventType}");
 
             var newEvent = new Event
             {

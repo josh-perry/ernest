@@ -7,6 +7,8 @@ using Ernest.Api.Models.Db;
 using Ernest.Api.Models.Responses;
 using Ernest.Api.Repositories;
 using Ernest.Api.Repositories.Interfaces;
+using Ernest.Api.Services;
+using Ernest.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +58,10 @@ namespace Ernest.Api
             // Repositories
             services.AddTransient<IEventTagsRepository, EventTagsRepository>();
             services.AddTransient<IEventTypeRepository, EventTypeRepository>();
+            services.AddTransient<IEventFieldRepository, EventFieldRepository>();
+
+            // Services
+            services.AddTransient<IEventValidator, EventValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
