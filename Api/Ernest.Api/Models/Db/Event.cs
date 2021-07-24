@@ -16,6 +16,9 @@ namespace Ernest.Api.Models.Db
 
         public DateTime DateTime { get; set; }
 
+        [Required]
+        public EventType EventType { get; set; }
+
         public ICollection<EventTag> EventTags { get; set; }
     }
 }
