@@ -45,7 +45,7 @@ namespace Ernest.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllEvents()
         {
             var events = _applicationDbContext.Events.Include(x => x.EventTags);
             return Json(_eventResponseMapper.MapDbToApiResponseEnumerable(events));
@@ -58,7 +58,7 @@ namespace Ernest.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Post([FromBody] EventPostRequest request)
+        public async Task<IActionResult> PostNewEvent([FromBody] EventPostRequest request)
         {
             var validationResults = new List<ValidationResult>();
             if (!Validator.TryValidateObject(request, new ValidationContext(request), validationResults))

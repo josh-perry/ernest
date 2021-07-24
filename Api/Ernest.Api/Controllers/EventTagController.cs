@@ -31,7 +31,7 @@ namespace Ernest.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        public IActionResult GetAll()
+        public IActionResult GetAllEventTags()
         {
             return Json(_eventTagResponseMapper.MapDbToApiResponseEnumerable(_eventTagsRepository.GetAll()));
         }
@@ -43,7 +43,7 @@ namespace Ernest.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Post([FromBody] EventTagsPostRequest request)
+        public async Task<IActionResult> PostNewEventTag([FromBody] EventTagsPostRequest request)
         {
             var newTag = new EventTag
             {
