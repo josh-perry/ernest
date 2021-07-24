@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Ernest.Api.Data;
 using Ernest.Api.Mappers;
 using Ernest.Api.Models.Db;
 using Ernest.Api.Models.Requests;
@@ -14,18 +13,14 @@ namespace Ernest.Api.Controllers
     [Route("eventTag")]
     public class EventTagController : Controller
     {
-        private readonly ApplicationDbContext _applicationDbContext;
-
         private readonly IApiResponseMapper<EventTag, EventTagApiResponse> _eventTagResponseMapper;
 
         private readonly IEventTagsRepository _eventTagsRepository;
 
         public EventTagController(
-            ApplicationDbContext applicationDbContext,
             IApiResponseMapper<EventTag, EventTagApiResponse> eventTagResponseMapper,
             IEventTagsRepository eventTagsRepository)
         {
-            _applicationDbContext = applicationDbContext;
             _eventTagResponseMapper = eventTagResponseMapper;
             _eventTagsRepository = eventTagsRepository;
         }
