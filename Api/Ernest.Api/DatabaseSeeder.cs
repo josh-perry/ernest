@@ -36,18 +36,12 @@ namespace Ernest.Api
                 new EventType
                 {
                     Title = "Weigh-in",
-                    EventTypeFields = new List<EventTypeFieldTemplates>
+                    DecimalFields = new List<EventDecimalFieldTemplate>
                     {
-                        new EventTypeFieldTemplates
+                        new EventDecimalFieldTemplate
                         {
-                            DecimalFields = new List<EventDecimalFieldTemplate>
-                            {
-                                new EventDecimalFieldTemplate
-                                {
-                                    Title = "Weight (lb)",
-                                    Priority = 1
-                                }
-                            }
+                            Title = "Weight (lb)",
+                            Priority = 1
                         }
                     }
                 },
@@ -55,18 +49,12 @@ namespace Ernest.Api
                 new EventType
                 {
                     Title = "Ideas",
-                    EventTypeFields = new List<EventTypeFieldTemplates>
+                    StringFields = new List<EventStringFieldTemplate>
                     {
-                        new EventTypeFieldTemplates
+                        new EventStringFieldTemplate
                         {
-                            StringFields = new List<EventStringFieldTemplate>
-                            {
-                                new EventStringFieldTemplate
-                                {
-                                    Title = "Idea",
-                                    Priority = 1
-                                }
-                            }
+                            Title = "Idea",
+                            Priority = 1
                         }
                     }
                 }

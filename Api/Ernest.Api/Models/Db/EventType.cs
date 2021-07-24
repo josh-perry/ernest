@@ -11,15 +11,6 @@ namespace Ernest.Api.Models.Db
         [MaxLength(120)]
         public string Title { get; set; }
 
-        public ICollection<EventTypeFieldTemplates> EventTypeFields { get; set; } = new List<EventTypeFieldTemplates>();
-    }
-
-    public class EventTypeFieldTemplates
-    {
-        public int ID { get; set; }
-
-        public EventType EventType { get; set; }
-
         public ICollection<EventStringFieldTemplate> StringFields { get; set; } = new List<EventStringFieldTemplate>();
 
         public ICollection<EventBooleanFieldTemplate> BooleanFields { get; set; } = new List<EventBooleanFieldTemplate>();

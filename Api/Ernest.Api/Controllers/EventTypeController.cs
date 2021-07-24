@@ -30,14 +30,10 @@ namespace Ernest.Api.Controllers
         public async Task<IActionResult> GetAllEventTypes()
         {
             var r = _dbContext.EventTypes
-                .Include(x => x.EventTypeFields)
-                    .ThenInclude(x => x.BooleanFields)
-                .Include(x => x.EventTypeFields)
-                    .ThenInclude(x => x.StringFields)
-                .Include(x => x.EventTypeFields)
-                    .ThenInclude(x => x.IntegerFields)
-                .Include(x => x.EventTypeFields)
-                    .ThenInclude(x => x.DecimalFields);
+                .Include(x => x.BooleanFields)
+                .Include(x => x.StringFields)
+                .Include(x => x.IntegerFields)
+                .Include(x => x.DecimalFields);
 
             return Json(_eventTypeResponseMapper.MapDbToApiResponseEnumerable(r.ToList()));
         }

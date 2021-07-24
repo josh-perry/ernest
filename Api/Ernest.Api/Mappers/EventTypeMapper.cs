@@ -11,14 +11,10 @@ namespace Ernest.Api.Mappers
         public EventTypeApiResponse MapDbToApiResponse(EventType db)
         {
             var fields = new List<string>();
-
-            foreach (var template in db.EventTypeFields)
-            {
-                fields.AddRange(template.BooleanFields?.Select(field => field.Title) ?? Array.Empty<string>());
-                fields.AddRange(template.StringFields?.Select(field => field.Title) ?? Array.Empty<string>());
-                fields.AddRange(template.DecimalFields?.Select(field => field.Title) ?? Array.Empty<string>());
-                fields.AddRange(template.IntegerFields?.Select(field => field.Title) ?? Array.Empty<string>());
-            }
+            fields.AddRange(db.BooleanFields?.Select(field => field.Title) ?? Array.Empty<string>());
+            fields.AddRange(db.StringFields?.Select(field => field.Title) ?? Array.Empty<string>());
+            fields.AddRange(db.DecimalFields?.Select(field => field.Title) ?? Array.Empty<string>());
+            fields.AddRange(db.IntegerFields?.Select(field => field.Title) ?? Array.Empty<string>());
 
             return new EventTypeApiResponse
             {
