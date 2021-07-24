@@ -17,7 +17,7 @@ namespace Ernest.Api.Models.Db
 
         public DateTime LastEditedDateTime { get; set; }
 
-        public EventType EventType { get; set; }
+        public Event Event { get; set; }
     }
 
     public class EventStringField : EventField

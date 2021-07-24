@@ -6,5 +6,7 @@ namespace Ernest.Api.Repositories.Interfaces
     public interface IEventFieldRepository
     {
         IEnumerable<EventFieldTemplate> GetAllTemplatesForEventType(EventType eventType);
+
+        void AddEventFields(Event e, Dictionary<string, object> fields);
     }
 }

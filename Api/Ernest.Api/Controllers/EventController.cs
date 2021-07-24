@@ -27,6 +27,8 @@ namespace Ernest.Api.Controllers
 
         private readonly IEventRepository _eventRepository;
 
+        private readonly IEventFieldRepository _eventFieldRepository;
+
         private readonly IEventValidator _eventValidator;
 
         private readonly ILogger<EventController> _logger;
@@ -36,6 +38,7 @@ namespace Ernest.Api.Controllers
             IEventTagsRepository eventTagsRepository,
             IEventTypeRepository eventTypeRepository,
             IEventRepository eventRepository,
+            IEventFieldRepository eventFieldRepository,
             IEventValidator eventValidator,
             ILogger<EventController> logger)
         {
@@ -43,6 +46,7 @@ namespace Ernest.Api.Controllers
             _eventTagsRepository = eventTagsRepository;
             _eventTypeRepository = eventTypeRepository;
             _eventRepository = eventRepository;
+            _eventFieldRepository = eventFieldRepository;
             _eventValidator = eventValidator;
             _logger = logger;
         }
@@ -84,6 +88,7 @@ namespace Ernest.Api.Controllers
             };
 
             newEvent = _eventRepository.Add(newEvent);
+            _eventFieldRepository.AddEventFields(newEvent, request.Fields);
 
             _logger.LogInformation($"Added new event: {newEvent.ID}");
             return Json(_eventResponseMapper.MapDbToApiResponse(newEvent));
