@@ -19,12 +19,32 @@ namespace Ernest.Api.Repositories
 
         public IEnumerable<EventFieldTemplate> GetAllTemplatesForEventType(EventType eventType)
         {
-            var booleanFields = _dbContext.EventBooleanFieldTemplates.Where(x => x.EventType == eventType).ToList();
-            var stringFields = _dbContext.EventStringFieldTemplates.Where(x => x.EventType == eventType).ToList();
-            var decimalFields = _dbContext.EventDecimalFieldTemplates.Where(x => x.EventType == eventType).ToList();
-            var integerFields = _dbContext.EventIntegerFieldTemplates.Where(x => x.EventType == eventType).ToList();
+            var booleanFields = GetBooleanTemplatesForEventType(eventType);
+            var stringFields = GetStringTemplatesForEventType(eventType);
+            var decimalFields = GetDecimalTemplatesForEventType(eventType);
+            var integerFields = GetIntegerTemplatesForEventType(eventType);
 
             return booleanFields.Concat<EventFieldTemplate>(stringFields).Concat(decimalFields).Concat(integerFields);
+        }
+
+        public IEnumerable<EventBooleanFieldTemplate> GetBooleanTemplatesForEventType(EventType eventType)
+        {
+            return _dbContext.EventBooleanFieldTemplates.Where(x => x.EventType == eventType).ToList();
+        }
+
+        public IEnumerable<EventStringFieldTemplate> GetStringTemplatesForEventType(EventType eventType)
+        {
+            return _dbContext.EventStringFieldTemplates.Where(x => x.EventType == eventType).ToList();
+        }
+
+        public IEnumerable<EventDecimalFieldTemplate> GetDecimalTemplatesForEventType(EventType eventType)
+        {
+            return _dbContext.EventDecimalFieldTemplates.Where(x => x.EventType == eventType).ToList();
+        }
+
+        public IEnumerable<EventIntegerFieldTemplate> GetIntegerTemplatesForEventType(EventType eventType)
+        {
+            return _dbContext.EventIntegerFieldTemplates.Where(x => x.EventType == eventType).ToList();
         }
 
         public void AddEventFields(Event e, Dictionary<string, object> fields)

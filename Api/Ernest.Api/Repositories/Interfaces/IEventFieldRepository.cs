@@ -7,6 +7,14 @@ namespace Ernest.Api.Repositories.Interfaces
     {
         IEnumerable<EventFieldTemplate> GetAllTemplatesForEventType(EventType eventType);
 
+        IEnumerable<EventBooleanFieldTemplate> GetBooleanTemplatesForEventType(EventType eventType);
+
+        IEnumerable<EventStringFieldTemplate> GetStringTemplatesForEventType(EventType eventType);
+
+        IEnumerable<EventDecimalFieldTemplate> GetDecimalTemplatesForEventType(EventType eventType);
+
+        IEnumerable<EventIntegerFieldTemplate> GetIntegerTemplatesForEventType(EventType eventType);
+
         void AddEventFields(Event e, Dictionary<string, object> fields);
     }
 }
