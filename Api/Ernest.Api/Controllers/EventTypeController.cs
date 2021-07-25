@@ -24,6 +24,10 @@ namespace Ernest.Api.Controllers
             _eventTypeResponseMapper = eventTypeResponseMapper;
         }
 
+        /// <summary>
+        ///     Get all event types
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         public async Task<IActionResult> GetAllEventTypes()
