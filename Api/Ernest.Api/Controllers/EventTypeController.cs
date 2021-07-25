@@ -35,5 +35,21 @@ namespace Ernest.Api.Controllers
             var eventTypes = _eventTypeRepository.GetAll();
             return Json(_eventTypeResponseMapper.MapDbToApiResponseEnumerable(eventTypes.ToList()));
         }
+
+        /// <summary>
+        ///     Get event type by name
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{eventTypeName}")]
+        public async Task<IActionResult> GetEventTypeByName(string eventTypeName)
+        {
+            var eventTypes = _eventTypeRepository.GetByName(eventTypeName).FirstOrDefault();
+
+            if (eventTypes == null)
+                return NotFound($"Event type '{eventTypeName}' not found");
+
+            return Json(_eventTypeResponseMapper.MapDbToApiResponse(eventTypes));
+        }
     }
 }
