@@ -6,13 +6,18 @@ namespace Ernest.Api.Test.SetupUtilities
 {
     public static class TestDbContextSeeder
     {
-        public static ApplicationDbContext InitializeDatabase()
+        private static readonly DbContextOptions<ApplicationDbContext> DbContextOptions;
+
+        static TestDbContextSeeder()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            DbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase("TestDb")
                 .Options;
+        }
 
-            var dbContext = new ApplicationDbContext(options);
+        public static ApplicationDbContext InitializeDatabase()
+        {
+            var dbContext = new ApplicationDbContext(DbContextOptions);
             dbContext.Database.EnsureDeleted();
 
             AddEventTags(dbContext);
