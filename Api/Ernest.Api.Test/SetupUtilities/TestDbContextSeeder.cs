@@ -26,7 +26,12 @@ namespace Ernest.Api.Test.SetupUtilities
 
         private static void AddEventTags(ApplicationDbContext dbContext)
         {
-            foreach (var tag in new[] { "TestTag", "TestTag2", "TestTag3" })
+            var tags = new[]
+            {
+                "TestTag", "TestTag2", "TestTag3"
+            };
+
+            foreach (var tag in tags)
             {
                 dbContext.EventTags.Add(new EventTag
                 {
