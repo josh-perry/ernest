@@ -13,6 +13,8 @@ namespace Ernest.Api.Test.SetupUtilities
                 .Options;
 
             var dbContext = new ApplicationDbContext(options);
+            dbContext.Database.EnsureDeleted();
+
             AddEventTags(dbContext);
             return dbContext;
         }
