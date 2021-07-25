@@ -2,7 +2,7 @@ using Ernest.Api.Data;
 using Ernest.Api.Models.Db;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ernest.Api.Test
+namespace Ernest.Api.Test.SetupUtilities
 {
     public static class TestDbContextSeeder
     {

@@ -1,5 +1,6 @@
 using System.Linq;
 using Ernest.Api.Repositories;
+using Ernest.Api.Test.SetupUtilities;
 using Xunit;
 
 namespace Ernest.Api.Test
