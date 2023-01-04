@@ -62,6 +62,14 @@ namespace Ernest.Api.Controllers
             var events = _eventRepository.GetAll();
             return Json(_eventResponseMapper.MapDbToApiResponseEnumerable(events));
         }
+        
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetEventDetails(int id)
+        {
+            var result = _eventRepository.GetById(id);
+            return Json(_eventResponseMapper.MapDbToApiResponse(result));
+        }
 
         /// <summary>
         ///     Add a new event

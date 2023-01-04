@@ -34,5 +34,17 @@ namespace Ernest.Api.Repositories
 
             return e;
         }
+
+        public Event GetById(int id)
+        {
+            return _dbContext.Events
+                .Include(x => x.EventTags)
+                .Include(x => x.EventType)
+                .Include(x => x.StringFields)
+                .Include(x => x.IntegerFields)
+                .Include(x => x.DecimalFields)
+                .Include(x => x.BooleanFields)
+                .FirstOrDefault(x => x.ID == id);
+        }
     }
 }

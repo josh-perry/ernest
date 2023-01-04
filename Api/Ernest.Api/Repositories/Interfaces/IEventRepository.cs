@@ -8,5 +8,7 @@ namespace Ernest.Api.Repositories.Interfaces
         IEnumerable<Event> GetAll();
 
         Event Add(Event e);
+        
+        Event GetById(int id);
     }
 }
