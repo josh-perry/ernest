@@ -54,10 +54,8 @@ namespace Ernest.Api
             services.AddSingleton<IApiResponseMapper<EventTag, EventTagApiResponse>, EventTagMapper>();
             services.AddSingleton<IApiResponseMapper<Event, EventApiResponse>, EventMapper>();
             services.AddSingleton<IApiResponseMapper<EventType, EventTypeApiResponse>, EventTypeMapper>();
-            services.AddSingleton<IApiResponseMapper<EventStringFieldTemplate, EventFieldApiResponse>, EventStringFieldMapper>();
-            services.AddSingleton<IApiResponseMapper<EventDecimalFieldTemplate, EventFieldApiResponse>, EventDecimalFieldMapper>();
-            services.AddSingleton<IApiResponseMapper<EventIntegerFieldTemplate, EventFieldApiResponse>, EventIntegerFieldMapper>();
-            services.AddSingleton<IApiResponseMapper<EventBooleanFieldTemplate, EventFieldApiResponse>, EventBooleanFieldMapper>();
+            services.AddSingleton<IApiResponseMapper<EventField, EventFieldApiResponse>, EventFieldMapper>();
+            services.AddSingleton<IApiResponseMapper<EventFieldTemplate, EventFieldTemplateApiResponse>, EventFieldTemplateMapper>();
 
             // Repositories
             services.AddTransient<IEventTagsRepository, EventTagsRepository>();

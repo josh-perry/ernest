@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Ernest.Api.Data;
 using Ernest.Api.Models.Db;
 using Ernest.Api.Repositories.Interfaces;
@@ -19,7 +20,11 @@ namespace Ernest.Api.Repositories
         {
             return _dbContext.Events
                 .Include(x => x.EventTags)
-                .Include(x => x.EventType);
+                .Include(x => x.EventType)
+                .Include(x => x.StringFields)
+                .Include(x => x.IntegerFields)
+                .Include(x => x.DecimalFields)
+                .Include(x => x.BooleanFields);
         }
 
         public Event Add(Event e)
